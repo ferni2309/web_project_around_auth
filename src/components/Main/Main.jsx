@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Card from "./components/Card/Card";
 import EditProfile from "./components/Popup/EditProfile/EditProfile";
 import EditAvatar from "./components/Popup/EditAvatar/EditAvatar";
-import NewCard from "./components/Popup/NewCard/NewCard";
+import NewCard from "../Main/components/popup/NewCard/NewCard";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ImagePopup from "../ImagePopup/ImagePopup";
 

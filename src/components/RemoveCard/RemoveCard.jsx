@@ -1,5 +1,4 @@
-import React from 'react';
-import PopupWithForm from '../Form/PopupWithForm';
+import PopupWithForm from '../Main/components/popup/PopupWithForm';
 
 function RemoveCard({ isOpen, onClose, onConfirm }) {
   
