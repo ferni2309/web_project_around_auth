@@ -9,7 +9,6 @@ function App() {
   const [currentUser, setCurrentUser] = useState({ name: "", about: "", avatar: "" });
   const [cards, setCards] = useState([]);
 
-  // Cargar datos iniciales
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userData, cardsData]) => {
@@ -19,7 +18,6 @@ function App() {
       .catch((err) => console.log("Error inicial:", err));
   }, []);
 
-  // Actualizar perfil
   const handleUpdateUser = (data) => {
     api.setUserInfo(data)
       .then((newUserData) => {
@@ -28,7 +26,6 @@ function App() {
       .catch((err) => console.log("Error al actualizar perfil:", err));
   };
 
-  // Actualizar avatar
   const handleUpdateAvatar = (data) => {
     api.setUserAvatar(data)
       .then((newUserData) => {
@@ -37,7 +34,6 @@ function App() {
       .catch((err) => console.log("Error al actualizar avatar:", err));
   };
 
-  // Añadir nueva tarjeta
   const handleAddPlaceSubmit = (data) => {
     api.addCard(data)
       .then((newCard) => {
@@ -46,7 +42,6 @@ function App() {
       .catch((err) => console.log("Error al añadir tarjeta:", err));
   };
 
-  // Like/dislike tarjeta
   const handleCardLike = (card) => {
     const isLiked = card.isLiked;
     api.changeLikeStatus(card._id, !isLiked)
@@ -56,7 +51,6 @@ function App() {
       .catch((err) => console.error("Error en like:", err));
   };
 
-  // Eliminar tarjeta
   const handleCardDelete = (card) => {
     api.deleteCard(card._id)
       .then(() => {

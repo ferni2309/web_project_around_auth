@@ -4,15 +4,12 @@ import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  // Verificar si la tarjeta pertenece al usuario actual
   const isOwn = card.owner === currentUser._id;
   const cardDeleteButtonClassName = `card_delete ${isOwn ? "" : "card_delete_hidden"}`;
 
-  // Verificar si el usuario actual le dio like
   const isLiked = card.isLiked;
   const cardLikeButtonClassName = `card_like-button ${isLiked ? "card_like-button_is-active" : ""}`;
 
-  // Handlers
   function handleClick() {
     onCardClick(card);
   }

@@ -10,13 +10,11 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 function Main({ cards, onUpdateUser, onUpdateAvatar, onAddPlaceSubmit, onCardLike, onCardDelete }) {
   const { currentUser } = useContext(CurrentUserContext);
 
-  // Estados de popups
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isNewCardPopupOpen, setIsNewCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
 
-  // Funciones para abrir/cerrar
   const handleEditProfileClick = () => setIsEditProfilePopupOpen(true);
   const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(true);
   const handleNewCardClick = () => setIsNewCardPopupOpen(true);
@@ -61,7 +59,6 @@ function Main({ cards, onUpdateUser, onUpdateAvatar, onAddPlaceSubmit, onCardLik
         </ul>
       </section>
 
-      {/* Popups incluidos directamente en Main */}
       <EditProfile isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={onUpdateUser} />
       <EditAvatar isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={onUpdateAvatar} />
       <NewCard isOpen={isNewCardPopupOpen} onClose={closeAllPopups} onAddPlaceSubmit={onAddPlaceSubmit} />
