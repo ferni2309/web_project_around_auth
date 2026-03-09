@@ -4,11 +4,26 @@ import PopupWithForm from '../PopupWithForm';
 function NewCard({ isOpen, onClose, onAddPlaceSubmit }) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+  const [errors, setErrors] = useState({ title: '', link: '' });
+  const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
-    setName('');
-    setLink('');
+    if (isOpen) {
+      setName('');
+      setLink('');
+      setErrors({ title: '', link: '' });
+      setIsValid(false);
+    }
   }, [isOpen]);
+
+  const handleChange = (e) => {
+    const { name: inputName, value, validationMessage, form } = e.target;
+    if (inputName === 'title') setName(value);
+    if (inputName === 'link') setLink(value);
+
+    setErrors(prev => ({ ...prev, [inputName]: validationMessage }));
+    setIsValid(form.checkValidity());
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -17,31 +32,23 @@ function NewCard({ isOpen, onClose, onAddPlaceSubmit }) {
 
   return (
     <PopupWithForm 
-      title="Nuevo lugar" 
-      name="new-card" 
-      isOpen={isOpen} 
-      onClose={onClose} 
-      onSubmit={handleSubmit}
+      name="add-card" title="Nuevo lugar" isOpen={isOpen} 
+      onClose={onClose} onSubmit={handleSubmit} buttonText="Crear"
+      isButtonDisabled={!isValid}
     >
       <input 
-        type="text" 
-        className="form__input" 
-        placeholder="Título" 
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required 
-        minLength="2"
+        className={`popup__input ${errors.title ? 'popup__input_type_error' : ''}`}
+        value={name} onChange={handleChange} name="title" placeholder="Título" 
+        required minLength="2" maxLength="30"
       />
-      <span className="form__input-error"></span>
+      <span className="popup__input-error">{errors.title}</span>
+
       <input 
-        type="url" 
-        className="form__input" 
-        placeholder="Enlace a la imagen" 
-        value={link}
-        onChange={(e) => setLink(e.target.value)}
+        className={`popup__input ${errors.link ? 'popup__input_type_error' : ''}`}
+        type="url" value={link} onChange={handleChange} name="link" placeholder="Enlace a la imagen" 
         required 
       />
-      <span className="form__input-error"></span>
+      <span className="popup__input-error">{errors.link}</span>
     </PopupWithForm>
   );
 }

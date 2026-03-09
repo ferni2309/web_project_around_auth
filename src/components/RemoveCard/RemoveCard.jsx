@@ -1,20 +1,22 @@
+import React from 'react';
+import PopupWithForm from '../Form/PopupWithForm';
 
-function RemoveCard() {
-  const handleSubmit = (e) => {
+function RemoveCard({ isOpen, onClose, onConfirm }) {
+  
+  function handleSubmit(e) {
     e.preventDefault();
-   
-    console.log("Tarjeta eliminada");
-  };
+    onConfirm();
+  }
 
   return (
-    <form className="form form_type_remove" name="remove-card" onSubmit={handleSubmit}>
-      <button 
-        type="submit" 
-        className="form__submit form__submit_type_remove"
-      >
-        Sí
-      </button>
-    </form>
+    <PopupWithForm 
+      name="remove-card" 
+      title="¿Estás seguro?" 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      onSubmit={handleSubmit}
+      buttonText="Sí"
+    />
   );
 }
 

@@ -1,15 +1,28 @@
-function PopupWithForm({ title, name, children, isOpen, onClose, onSubmit }) {
+import React from 'react';
+import closeIcon from '../../assets/images/Close-Icon.png';
+
+function PopupWithForm({ name, title, children, isOpen, onClose, onSubmit, buttonText, isButtonDisabled }) {
   return (
-    <div className={`popup popup_type_${name} ${isOpen ? 'popup_opened' : ''}`}>
-      <div className="popup__container">
-        <button type="button" className="popup__close" onClick={onClose}></button>
+    <section className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
+      <div className="popup__content">
+        <button className="popup__close" type="button" onClick={onClose}>
+          <img src={closeIcon} alt="Icono de cerrar" />
+        </button>
+        
         <h2 className="popup__title">{title}</h2>
-        <form className="form" name={name} onSubmit={onSubmit}>
+        
+        <form className="popup__form" name={name} onSubmit={onSubmit} noValidate>
           {children}
-          <button type="submit" className="popup__button">Guardar</button>
+          <button 
+            className={`popup__button ${isButtonDisabled ? "popup__button_disabled" : ""}`} 
+            type="submit"
+            disabled={isButtonDisabled}
+          >
+            {buttonText || "Guardar"}
+          </button>
         </form>
       </div>
-    </div>
+    </section>
   );
 }
 

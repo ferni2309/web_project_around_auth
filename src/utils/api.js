@@ -1,4 +1,4 @@
-export default class Api {
+class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
@@ -23,7 +23,7 @@ export default class Api {
     }).then(this._checkResponse);
   }
 
-  updateUserInfo({ name, about }) {
+  setUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -31,11 +31,11 @@ export default class Api {
     }).then(this._checkResponse);
   }
 
-  updateAvatar(avatarLink) {
+  setUserAvatar({ avatar }) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ avatar: avatarLink }),
+      body: JSON.stringify({ avatar }),
     }).then(this._checkResponse);
   }
 
@@ -54,17 +54,20 @@ export default class Api {
     }).then(this._checkResponse);
   }
 
-  likeCard(cardId) {
+  changeLikeStatus(cardId, isLiked) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "PUT",
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-
-  unlikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: "DELETE",
+      method: isLiked ? "PUT" : "DELETE",
       headers: this._headers,
     }).then(this._checkResponse);
   }
 }
+
+const api = new Api({
+  baseUrl: "https://around-api.es.tripleten-services.com/v1",
+  headers: {
+    authorization: "98d178e2-4bc1-405e-af44-da35273fb2e3",
+    "Content-Type": "application/json",
+  },
+});
+
+export default api;

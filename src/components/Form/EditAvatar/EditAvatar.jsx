@@ -1,37 +1,41 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import PopupWithForm from '../PopupWithForm';
 
 function EditAvatar({ isOpen, onClose, onUpdateAvatar }) {
-  const avatarRef = useRef(); // Hook useRef para el input
+  const avatarRef = useRef();
+  const [error, setError] = useState('');
+  const [isValid, setIsValid] = useState(false);
 
-  // Limpiar el input al abrir/cerrar
   useEffect(() => {
-    avatarRef.current.value = '';
+    if (isOpen) {
+      if (avatarRef.current) avatarRef.current.value = '';
+      setError('');
+      setIsValid(false);
+    }
   }, [isOpen]);
+
+  const handleChange = (e) => {
+    setError(e.target.validationMessage);
+    setIsValid(e.target.form.checkValidity());
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    });
+    onUpdateAvatar({ avatar: avatarRef.current.value });
   }
 
   return (
     <PopupWithForm 
-      title="Actualizar foto de perfil" 
-      name="edit-avatar" 
-      isOpen={isOpen} 
-      onClose={onClose} 
-      onSubmit={handleSubmit}
+      name="edit-avatar" title="Actualizar foto de perfil" isOpen={isOpen} 
+      onClose={onClose} onSubmit={handleSubmit} buttonText="Guardar"
+      isButtonDisabled={!isValid}
     >
       <input 
-        ref={avatarRef}
-        type="url" 
-        className="form__input" 
-        placeholder="Enlace a la imagen" 
-        required 
+        ref={avatarRef} type="url" name="avatar" placeholder="Enlace a la imagen" required 
+        className={`popup__input ${error ? 'popup__input_type_error' : ''}`}
+        onChange={handleChange}
       />
-      <span className="form__input-error"></span>
+      <span className="popup__input-error">{error}</span>
     </PopupWithForm>
   );
 }

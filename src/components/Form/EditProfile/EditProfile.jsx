@@ -1,69 +1,55 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { CurrentUserContext } from '../../../context/CurrentUserContext';
+import React, { useState, useEffect } from 'react';
+import PopupWithForm from '../PopupWithForm';
 
-function EditProfile({ isOpen, onUpdateUser }) {
-  // 1. Suscripción al contexto (Pág. 4: "Componentes Main y Card están suscritos...") 
-  // Nota: EditProfile también lo requiere para mostrar los datos actuales.
-  const currentUser = useContext(CurrentUserContext);
-
-  // 2. Estado local para los inputs (Variables descriptivas en camelCase - Pág. 2)
+function EditProfile({ isOpen, onClose, onUpdateUser }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [errors, setErrors] = useState({ name: '', about: '' });
+  const [isValid, setIsValid] = useState(false);
 
-  // 3. Efecto para cargar datos actuales (Pág. 3: "los datos se sustituyen por los actuales")
   useEffect(() => {
-    if (currentUser.name && currentUser.about) {
-      setName(currentUser.name);
-      setDescription(currentUser.about);
+    if (isOpen) {
+      setName('');
+      setDescription('');
+      setErrors({ name: '', about: '' });
+      setIsValid(false);
     }
-  }, [currentUser, isOpen]);
+  }, [isOpen]);
 
-  // Manejadores de cambio (Nombres comienzan con verbo - Pág. 3)
-  function handleNameChange(e) {
-    setName(e.target.value);
+  const handleChange = (e) => {
+    const { name: inputName, value, validationMessage, form } = e.target;
+    if (inputName === 'name') setName(value);
+    if (inputName === 'about') setDescription(value);
+
+    setErrors(prev => ({ ...prev, [inputName]: validationMessage }));
+    setIsValid(form.checkValidity());
   }
 
-  function handleDescriptionChange(e) {
-    setDescription(e.target.value);
-  }
-
-  // 4. Manejador de envío (Pág. 4: "controladores como handleUpdateUser se describen en App")
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUser({
-      name,
-      about: description,
-    });
+    onUpdateUser({ name, about: description });
   }
 
   return (
-    <form className="form" name="edit-profile" onSubmit={handleSubmit}>
+    <PopupWithForm 
+      name="edit-profile" title="Editar perfil" isOpen={isOpen} 
+      onClose={onClose} onSubmit={handleSubmit} buttonText="Guardar"
+      isButtonDisabled={!isValid}
+    >
       <input 
-        type="text" 
-        className="form__input" 
-        placeholder="Nombre" 
-        required 
-        minLength="2" 
-        maxLength="40" 
-        value={name || ''} 
-        onChange={handleNameChange}
+        className={`popup__input ${errors.name ? 'popup__input_type_error' : ''}`}
+        value={name} onChange={handleChange} name="name" placeholder="Nombre" 
+        required minLength="2" maxLength="40"
       />
-      <span className="form__input-error"></span>
-      
+      <span className="popup__input-error">{errors.name}</span>
+
       <input 
-        type="text" 
-        className="form__input" 
-        placeholder="Acerca de mí" 
-        required 
-        minLength="2" 
-        maxLength="200" 
-        value={description || ''} 
-        onChange={handleDescriptionChange}
+        className={`popup__input ${errors.about ? 'popup__input_type_error' : ''}`}
+        value={description} onChange={handleChange} name="about" placeholder="Acerca de mí" 
+        required minLength="2" maxLength="200"
       />
-      <span className="form__input-error"></span>
-      
-      <button type="submit" className="popup__button">Guardar</button>
-    </form>
+      <span className="popup__input-error">{errors.about}</span>
+    </PopupWithForm>
   );
 }
 

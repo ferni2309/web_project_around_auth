@@ -1,59 +1,64 @@
-import React, { useContext } from 'react'; // Importamos useContext
-import { CurrentUserContext } from '../../context/CurrentUserContext'; // Importamos el contexto
-import editAvatarIcon from '../../assets/images/EditAvatar.png';
-import editButtonIcon from '../../assets/images/EditButton.png';
-import addButtonIcon from '../../assets/images/addButton.png';
-import Card from './components/Card/Card';
+import React, { useContext } from "react";
+import Card from "./components/Card/Card";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import editButton from "../../assets/images/EditButton.png";
+import addButton from "../../assets/images/AddButton.png";
 
-// Nota: initialCards debe venir ahora desde el estado en App.jsx a través de props
-function Main({ 
-  onEditProfileClick, 
-  onAddPlaceClick, 
-  onEditAvatarClick, 
-  onCardClick, 
-  onRemoveCardClick,
-  cards // Recibe las tarjetas por props desde App
+function Main({
+  onEditProfileClick,
+  onAddPlaceClick,
+  onEditAvatarClick,
+  onCardClick,
+  onCardLike,
+  onCardDelete,
+  cards,
 }) {
-  
-  // 1. Suscripción al contexto para obtener los datos del usuario
   const currentUser = useContext(CurrentUserContext);
 
   return (
     <main className="content">
       <section className="profile">
-        <div className="profile__avatar">
-          {/* 2. Usamos currentUser.avatar en lugar de la imagen estática */}
-          <img 
-            src={currentUser.avatar} 
-            alt={`Foto de ${currentUser.name}`} 
-            className="profile__imagen" 
+        <div className="profile__avatar-container" onClick={onEditAvatarClick}>
+          <img
+            src={currentUser.avatar || "https://via.placeholder.com"}
+            alt="Avatar"
+            className="profile__avatar"
           />
-          <button type="button" className="profile__EditAvatar" onClick={onEditAvatarClick}>
-            <img src={editAvatarIcon} alt="Editar avatar" />
-          </button>
+          <div className="profile__avatar-overlay"></div>
         </div>
         <div className="profile__info">
-          {/* 3. Usamos currentUser.name y currentUser.about */}
-          <h1 className="profile__name">{currentUser.name}</h1>
-          <button type="button" className="profile__EditButton" onClick={onEditProfileClick}>
-            <img src={editButtonIcon} alt="Editar perfil" />
-          </button>
-          <h2 className="profile__acerca-de-mi">{currentUser.about}</h2>
+          <div className="profile__title-container">
+            <h1 className="profile__name">
+              {currentUser.name || "Cargando..."}
+            </h1>
+            <button
+              className="profile__edit-button"
+              type="button"
+              onClick={onEditProfileClick}
+            >
+              <img src={editButton} alt="Botón editar perfil" />
+            </button>
+          </div>
+          <p className="profile__about">{currentUser.about || "Estudiante"}</p>
         </div>
-        <button type="button" className="profile__AddButton" onClick={onAddPlaceClick}>
-          <img src={addButtonIcon} alt="Agregar" />
+        <button
+          className="profile__add-button"
+          type="button"
+          onClick={onAddPlaceClick}
+        >
+          <img src={addButton} alt="Botón añadir tarjeta" />
         </button>
       </section>
 
-      <section className="elements">
-        <ul className="cards__list" style={{ listStyle: 'none', padding: 0, display: 'grid', gap: '20px' }}>
-          {/* 4. Renderizamos el array de tarjetas que viene del estado de App */}
+      <section className="cards">
+        <ul className="cards__list">
           {cards.map((card) => (
-            <Card 
-              key={card._id} 
-              card={card} 
+            <Card
+              key={card._id}
+              card={card}
               onCardClick={onCardClick}
-              onRemoveCardClick={onRemoveCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </ul>

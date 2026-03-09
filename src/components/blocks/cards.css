@@ -1,16 +1,97 @@
-.cards {
-  display: flex;
-  flex-direction: column;
+.cards__list {
+  margin: 50px auto 0;
+  max-width: 880px;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, 282px);
+  gap: 20px 17px;
+  list-style: none;
+  padding: 0;
+}
+
+.card {
+  position: relative;
   width: 282px;
-  height: 361px;
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
 }
 
-.cards__imagen {
+.card__image {
   width: 100%;
   height: 282px;
   object-fit: cover;
   display: block;
+  cursor: pointer;
+}
+
+.card__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 15px 25px 21px;
+}
+
+.card__title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.2;
+  color: #000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 190px;
+}
+
+.card__like-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.card__like-button {
+  width: 22px;
+  height: 19px;
+  background: transparent url("../../assets/images/Group-corazón.svg") center no-repeat;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.card__like-button_active {
+  background-image: url("../../assets/images/Group-corazón-Active.svg") !important;
+}
+
+.card__like-count {
+  font-size: 13px;
+  color: #000;
+}
+
+.card__delete {
+  width: 18px;
+  height: 19px;
+  background: transparent url("../../assets/images/Trash.svg") center no-repeat;
+  border: none;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.card__delete_hidden {
+  display: none;
+}
+
+.card__delete:hover, .card__like-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 600px) {
+  .cards__list {
+    grid-template-columns: 282px;
+  }
 }

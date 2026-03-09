@@ -1,39 +1,12 @@
-.group {
-  margin: auto 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.group__text {
-  margin-left: 21px;
-  margin-right: auto;
-  font-size: 22px;
-  font-weight: 900;
-  line-height: 100%;
-}
-
 .group__imagen-button {
-  background-color: transparent;
-  background-image: url(../../assets/images/Group-corazón.svg);
-  background-position: center;
-  background-repeat: no-repeat;
+  background: transparent url('../../assets/images/Group-corazón.svg') center no-repeat;
+  background-size: contain;
+  width: 22px;
+  height: 19px;
   border: none;
-  padding: 0 15px;
-  margin-right: 10px;
+  cursor: pointer;
 }
 
 .group__imagen-button_active {
-  background-image: url(../../assets/images/Group-corazón-Active.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  border: none;
-  padding: 0 15px;
-  margin-right: 10px;
-}
-
-.group__imagen:hover {
-  cursor: pointer;
-  opacity: 0.5;
+  background-image: url('../../assets/images/Group-corazón-Active.svg');
 }
