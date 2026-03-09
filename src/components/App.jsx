@@ -7,7 +7,7 @@ import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
-  const [currentUser, setCurrentUser] = useState({ name: '', about: '', avatar: '' });
+  const [currentUser, setCurrentUser] = useState({ name: "", about: "", avatar: "" });
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   
