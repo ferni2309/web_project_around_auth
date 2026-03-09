@@ -61,7 +61,7 @@
   transition: opacity 0.3s;
 }
 
-.card__like-button_active {
+.card__like-button_is-active {
   background-image: url("../../assets/images/Group-corazón-Active.svg") !important;
 }
 

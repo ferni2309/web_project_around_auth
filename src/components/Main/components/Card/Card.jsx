@@ -4,50 +4,50 @@ import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext);
 
-  const ownerId = card?.owner?._id || card?.owner;
-  const isOwn = ownerId === currentUser?._id;
-  const isLiked = card?.isLiked; 
-
-  const handleLikeClick = () => onCardLike(card);
-  const handleDeleteClick = () => onCardDelete(card);
-  const handleCardClick = () => onCardClick(card);
-
+  const isOwn = card.owner === currentUser._id;
   const cardDeleteButtonClassName = `card__delete ${
-    isOwn ? "card__delete_visible" : "card__delete_hidden"
+    isOwn ? "" : "card__delete_hidden"
   }`;
-  
+
+  const isLiked = card.isLiked; 
+
   const cardLikeButtonClassName = `card__like-button ${
-    isLiked ? "card__like-button_active" : ""
+    isLiked ? "card__like-button_is-active" : ""
   }`;
+
+  function handleClick() {
+    onCardClick(card);
+  }
+
+  function handleLikeClick() {
+    onCardLike(card);
+  }
+
+  function handleDeleteClick() {
+    onCardDelete(card);
+  }
 
   return (
     <li className="card">
       <img
-        src={card?.link}
-        alt={card?.name}
         className="card__image"
-        onClick={handleCardClick}
+        src={card.link}
+        alt={card.name}
+        onClick={handleClick}
       />
-      
-      {isOwn && (
-        <button
-          className={cardDeleteButtonClassName}
-          type="button"
-          onClick={handleDeleteClick}
-        />
-      )}
-
+      <button
+        className={cardDeleteButtonClassName}
+        onClick={handleDeleteClick}
+        type="button"
+      />
       <div className="card__info">
-        <h2 className="card__title">{card?.name || "Sin título"}</h2>
+        <h2 className="card__title">{card.name}</h2>
         <div className="card__like-container">
           <button
             className={cardLikeButtonClassName}
-            type="button"
             onClick={handleLikeClick}
+            type="button"
           />
-          {/* <span className="card__like-count">
-            {Array.isArray(card?.likes) ? card.likes.length : 0}
-          </span> */}
         </div>
       </div>
     </li>
