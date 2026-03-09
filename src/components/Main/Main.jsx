@@ -4,6 +4,7 @@ import EditProfile from "./components/Popup/EditProfile/EditProfile";
 import EditAvatar from "./components/Popup/EditAvatar/EditAvatar";
 import NewCard from "./components/Popup/NewCard/NewCard";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import ImagePopup from "../ImagePopup/ImagePopup";
 
 function Main(props) {
   const currentUser = useContext(CurrentUserContext);
@@ -54,6 +55,12 @@ function Main(props) {
 
       <NewCard 
         isOpen={props.popup === 'add-place'} 
+        onClose={props.onClosePopup} 
+        onAddPlaceSubmit={props.onAddPlaceSubmit} 
+      />
+
+      <ImagePopup 
+        isOpen={props.popup === 'image-popup'} 
         onClose={props.onClosePopup} 
         onAddPlaceSubmit={props.onAddPlaceSubmit} 
       />
