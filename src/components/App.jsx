@@ -11,7 +11,6 @@ function App() {
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState(null);
   
-  // Nuevo estado centralizado para los popups
   const [popup, setPopup] = useState(null); 
 
   useEffect(() => {
