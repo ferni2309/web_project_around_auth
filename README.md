@@ -82,7 +82,8 @@ src/
 │   ├── Header/             # Encabezado con logo
 │   ├── Main/               # Contenedor de perfil y lista de tarjetas
 │   ├── Card/               # Tarjeta individual con lógica de Like/Delete
-│   ├── Form/               # Componentes de formulario (Popups)
+│   ├── popup/              # Componentes de formulario (Popups)
+│   │   │── Popup           # Componente Popup
 │   │   ├── PopupWithForm   # Componente genérico reutilizable
 │   │   ├── EditProfile     # Edición de nombre y ocupación
 │   │   ├── EditAvatar      # Cambio de foto (usa Refs)
