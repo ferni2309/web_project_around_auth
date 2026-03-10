@@ -9,12 +9,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const [description, setDescription] = useState("");
   const [errors, setErrors] = useState({ name: "", description: "" });
 
-  // ✅ Precargar datos del usuario cuando se abre el popup
   useEffect(() => {
   if (isOpen && currentUser) {
     setName(currentUser.name || "");
     setDescription(currentUser.about || "");
-    setErrors({ name: "", description: "" }); // si usas validación
+    setErrors({ name: "", description: "" });
   }
 }, [isOpen, currentUser]);
 

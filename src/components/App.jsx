@@ -13,7 +13,6 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [cards, setCards] = useState([]); 
 
-  // 2. Funciones para abrir los popups
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
@@ -36,7 +35,6 @@ function App() {
     .catch((err) => console.error(`Error al cargar datos iniciales: ${err}`));
 }, []);
 
-  // 3. FUNCIÓN ÚNICA DE CIERRE (La que pasan todos los componentes)
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -56,18 +54,17 @@ function App() {
   function handleUpdateAvatar(avatarData) {
     api.setUserAvatar(avatarData)
       .then((newUser) => {
-        // Actualizamos el contexto con el nuevo avatar devuelto por la API
+
         setCurrentUser(newUser);
         closeAllPopups();
       })
       .catch((err) => console.error(`Error al actualizar avatar: ${err}`));
   }
 
-  // Añadir una nueva tarjeta (Lugar)
   function handleAddPlaceSubmit(cardData) {
     api.addCard(cardData)
       .then((newCard) => {
-        // Añadimos la nueva tarjeta al principio de la lista actual
+
         setCards([newCard, ...cards]); 
         closeAllPopups();
       })
@@ -84,12 +81,11 @@ function handleCardLike(card) {
     .catch((err) => console.error(`Error al gestionar el like: ${err}`));
 }
 
-
 function handleCardDelete(card) {
-    // Llamamos al método de la API para eliminar la tarjeta del servidor
+
     api.deleteCard(card._id)
       .then(() => {
-        // Actualizamos el estado local filtrando el array para quitar la tarjeta borrada
+
         setCards((state) => state.filter((c) => c._id !== card._id));
       })
       .catch((err) => {
@@ -102,7 +98,7 @@ function handleCardDelete(card) {
       <div className="page">
         <Header />
         <Main
-          // 3. ASEGÚRATE DE PASAR EL ESTADO CARDS AQUÍ
+
           cards={cards} 
           onEditProfileClick={handleEditProfileClick}
           onAddPlaceClick={handleAddPlaceClick}
@@ -111,7 +107,6 @@ function handleCardDelete(card) {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
         
-        // Pasamos el estado actual para que Main decida qué mostrar
         popup={
           isEditProfilePopupOpen ? "edit-profile" : 
           isAddPlacePopupOpen ? "add-place" : 
@@ -119,10 +114,8 @@ function handleCardDelete(card) {
         }
         selectedCard={selectedCard}
         
-        // Pasamos la función de cierre unificada
         onClosePopup={closeAllPopups}
         
-        // Handlers de API (UpdateUser, AddPlace, etc.)
         onUpdateUser={handleUpdateUser} 
         onUpdateAvatar={handleUpdateAvatar}
         onAddPlaceSubmit={handleAddPlaceSubmit}

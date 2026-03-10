@@ -19,10 +19,6 @@ function Popup({ isOpen, name, onClose, children }) {
       className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}
       onClick={handleOverlayClick}
     >
-      {/* 
-         Si name es "image", usamos un wrapper transparente.
-         Si no, usamos el cuadro blanco estándar (popup__content).
-      */}
       <div className={name === "image" ? "popup__image-wrapper" : "popup__content"}>
         {isOpen && (
   <button
