@@ -56,7 +56,7 @@ Nuevas imagenes, gif y video:
 > ![Comentar api.setToken(jwt) para poder visualizar temporalmente las tarjetas y datos del usuario](./src/images/Comentar-api.setToken(jwt).JPG)
 > <video src="src/images/Solicitudes_a_los_servidores.mp4" width="600" controls></video>
 > ![Gif del funcionamiento del regisro de una nueva cuenta](./src/images/Registro.gif)
-> ![Gif del funcionamiento del inicio de sesión](./src/images/Inicio_de_sesión.gif)
+> ![Gif del funcionamiento del inicio de sesión](./src/images/Inicio_de_sesión.gif) 
 
 ---
 **Proyecto desarrollado por:** C. Fernando Orozco Rodríguez
