@@ -3,7 +3,7 @@ import Card from "./components/Card/Card";
 import Popup from "./components/Popup/Popup";
 import EditProfile from "./components/Popup/EditProfile/EditProfile";
 import EditAvatar from "./components/Popup/EditAvatar/EditAvatar";
-import NewCard from "./components/popup/NewCard/NewCard";
+import NewCard from "./components/Popup/NewCard/NewCard";
 import ImagePopup from "../ImagePopup/ImagePopup";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
