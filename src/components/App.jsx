@@ -30,7 +30,7 @@ function App() {
     .then((data) => {
       if (data.token) {
         localStorage.setItem("jwt", data.token);
-        //api.setToken(data.token);
+        api.setToken(data.token);
         setEmail(email);        
         setIsLoggedIn(true);
         navigate("/");
@@ -70,7 +70,7 @@ useEffect(() => {
         if (res && res.data) {
           setIsLoggedIn(true);
           setEmail(res.data.email);
-          //api.setToken(jwt); 
+          api.setToken(jwt); 
           navigate("/"); 
         } else {
           localStorage.removeItem("jwt");
