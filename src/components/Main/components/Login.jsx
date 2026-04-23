@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -34,8 +35,11 @@ function Login({ onLogin }) {
         <button type="submit" className="auth__button">
           Iniciar sesión
         </button>
-        <a href="/signup" className="auth__link">
+        <Link to="/signup" className="auth__link">
           ¿Aún no eres miembro? Regístrate aquí
+        </Link>
+        <a href="https://freedns.afraid.org/" className="auth__link" target="_blank" rel="noopener noreferrer">
+          "Free DNS"
         </a>
       </form>
     </div>

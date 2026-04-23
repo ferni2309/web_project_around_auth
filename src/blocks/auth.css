@@ -102,6 +102,16 @@
   margin-bottom: 216px;
 }
 
+.auth__link:nth-of-type(2) {
+  margin-top: 15px;
+  height: 17px;
+  color: #d6fc00;
+  font-family: 'Inter-Local', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+}
+
 @media screen and (max-width: 600px) {
   .auth__title {
     margin-top: 40px;
